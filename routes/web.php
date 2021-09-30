@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\SupplierController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +58,12 @@ Route::prefix('brands')->group(function(){
 Route::prefix('categories')->group(function(){
     Route::resource('category',CategoryController::class);
     Route::get('/delete/{id}',[CategoryController::class, 'softDelete'])->name('category.delete');
+  });
+
+  // admin Supplier all route
+Route::prefix('suppliers')->group(function(){
+    Route::resource('supplier',SupplierController::class);
+    Route::get('/delete/{id}',[SupplierController::class, 'softDelete'])->name('supplier.delete');
   });
 
 

@@ -78,6 +78,27 @@
             </ul>
           </li>
 
+          <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link {{ $prefix == '/suppliers'? 'active':'' }}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>Supplier <i class="fas fa-angle-left right"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('supplier.index') }}" class="nav-link {{ $route == 'supplier.index' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Supplier</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('supplier.create') }}" class="nav-link {{ $route == 'supplier.create' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Supplier</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
 
           <li class="nav-item">
             <a href="pages/kanban.html" class="nav-link">
