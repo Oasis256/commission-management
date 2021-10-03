@@ -99,6 +99,49 @@
             </ul>
           </li>
 
+          <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link {{ $prefix == '/products'? 'active':'' }}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>Products <i class="fas fa-angle-left right"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('product.index') }}" class="nav-link {{ $route == 'product.index' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Product</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('product.create') }}" class="nav-link {{ $route == 'product.create' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Product</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('unit.index') }}" class="nav-link {{ $route == 'unit.index' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Units</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link {{ $prefix == '/products'? 'active':'' }}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>Setting <i class="fas fa-angle-left right"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('product.index') }}" class="nav-link {{ $route == 'product.index' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Payment Method</p>
+                </a>
+              </li>
+              
+            </ul>
+          </li>
+
 
           <li class="nav-item">
             <a href="pages/kanban.html" class="nav-link">

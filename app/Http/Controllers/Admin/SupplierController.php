@@ -64,14 +64,7 @@ class SupplierController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'supplier_name' => 'required|unique:suppliers|max:50',
-            'status' => 'required',
-            'email' => 'required|email|unique:suppliers',
-            'mobile' => 'required|unique:suppliers',
-            'address' => 'required'
-        ]);
-
+        
         Supplier::where('id',$id)->update([
             'supplier_name' => $request->supplier_name,
             'supplier_slug' => strtolower(str_replace(' ','-',$request->supplier_name)),

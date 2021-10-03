@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SupplierController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\UnitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,23 +50,33 @@ Route::get('admin/profile/edit',[AdminProfileController::class, 'adminProfileEdi
 Route::post('admin/profile/store',[AdminProfileController::class, 'adminProfileStore'])->name('admin.profile.store');
 Route::post('admin/change/password',[AdminProfileController::class, 'UpdateChangePassword'])->name('update.change.password');
 
-// admin brand all route
+// admin brand route
 Route::prefix('brands')->group(function(){
     Route::resource('brand',BrandController::class);
     Route::get('/delete/{id}',[BrandController::class, 'softDelete'])->name('brand.delete');
   });
 
-// admin categories all route
+// admin categories route
 Route::prefix('categories')->group(function(){
     Route::resource('category',CategoryController::class);
     Route::get('/delete/{id}',[CategoryController::class, 'softDelete'])->name('category.delete');
-  });
+});
 
-  // admin Supplier all route
+// admin Supplier route
 Route::prefix('suppliers')->group(function(){
     Route::resource('supplier',SupplierController::class);
     Route::get('/delete/{id}',[SupplierController::class, 'softDelete'])->name('supplier.delete');
-  });
+});
+
+// admin Product route
+Route::prefix('products')->group(function(){
+    Route::resource('product',ProductController::class);
+    Route::get('/delete/{id}',[ProductController::class, 'softDelete'])->name('product.delete');
+   
+
+    Route::resource('unit',UnitController::class);
+    Route::get('unit/delete/{id}',[UnitController::class, 'softDelete'])->name('unit.delete');
+});
 
 
 Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function () {
