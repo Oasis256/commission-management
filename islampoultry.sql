@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 11, 2021 at 10:01 AM
+-- Generation Time: Oct 25, 2021 at 12:33 PM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
@@ -45,7 +45,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `current_team_id`, `profile_photo_path`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '2021-09-20 04:33:18', '$2y$10$8VB5Tq0DXc3hIxiq9inQFedq2DERK77ya/F1sJLQS1CY3d/Q8k2fy', 'x9ZrbFWsqTGmMs7UUAfZv9t3da7mxamvU6B6EDQxx156e16AMxyqGQzLv9fW', NULL, '202109201202Ambrose-Chui-Cropped-200x200.jpg', '2021-09-20 04:33:18', '2021-09-20 06:02:50');
+(1, 'admin', 'admin@gmail.com', '2021-09-20 04:33:18', '$2y$10$8VB5Tq0DXc3hIxiq9inQFedq2DERK77ya/F1sJLQS1CY3d/Q8k2fy', 'iWw8XKJbtCoTQ16OU3E9PUaawYoTNdG6pCy1vvoTQvwlsbv9W9ZgW0aqpLuJ', NULL, '202109201202Ambrose-Chui-Cropped-200x200.jpg', '2021-09-20 04:33:18', '2021-09-20 06:02:50');
 
 -- --------------------------------------------------------
 
@@ -126,6 +126,32 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `inventory_products`
+--
+
+CREATE TABLE `inventory_products` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL DEFAULT '0',
+  `unit` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `stock_in_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `stock_out_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `stock_by` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `inventory_products`
+--
+
+INSERT INTO `inventory_products` (`id`, `product_id`, `quantity`, `unit`, `stock_in_date`, `stock_out_date`, `stock_by`, `created_at`, `updated_at`) VALUES
+(1, 1, 20, '4', '2021-10-23 14:08:14', NULL, '1', '2021-10-23 08:08:14', '2021-10-23 08:08:14'),
+(2, 1, 22, '1', '2021-10-23 14:12:52', NULL, '1', '2021-10-23 08:12:52', '2021-10-23 08:12:52');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -154,7 +180,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (23, '2021_09_30_053906_create_products_table', 6),
 (24, '2021_10_02_073139_add_soft_deletes_to_products_table', 7),
 (25, '2021_10_02_082827_create_pmethods_table', 8),
-(26, '2021_10_03_101845_create_purchases_table', 9);
+(26, '2021_10_03_101845_create_purchases_table', 9),
+(27, '2021_10_23_131314_create_inventory_products_table', 10);
 
 -- --------------------------------------------------------
 
@@ -209,8 +236,8 @@ CREATE TABLE `pmethods` (
 INSERT INTO `pmethods` (`id`, `payment_name`, `payment_slug`, `payment_details`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'Bkash', 'bkash', 'Bkash a Brack Bank Service', 1, '2021-10-03 00:22:44', '2021-10-03 03:06:34'),
 (2, 'Cash on Delivery', 'cash-on-delivery', 'Payment method details goes here', 1, '2021-10-03 00:23:54', '2021-10-03 04:19:46'),
-(3, 'Gift card', 'gift-card', 'Details of giftcard payment method', 1, '2021-10-03 00:26:40', '2021-10-04 04:13:57'),
-(4, 'Credit', 'credit', 'Payment by customer credited balance', 1, '2021-10-03 00:27:01', '2021-10-04 04:13:59');
+(3, 'Gift card', 'gift-card', 'Details of giftcard payment method', 0, '2021-10-03 00:26:40', '2021-10-20 05:33:37'),
+(4, 'Credit', 'credit', 'Payment by customer credited balance', 0, '2021-10-03 00:27:01', '2021-10-20 05:33:40');
 
 -- --------------------------------------------------------
 
@@ -300,8 +327,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('1q5nt6Xn3n6Teq3OptjJ71ly9MLoxPbOhHixy3cH', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiWVBtdXJ0VVFYYndKTGNrbDZhdmdudzRHQTdkdnVMNld5SThFZFJHSiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTA6Imh0dHBzOi8vaXNsYW1wb3VsdHJ5LmRldi9wdXJjaGFzZXMvcHVyY2hhc2UvY3JlYXRlIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MjoibG9naW5fYWRtaW5fNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1633945466),
-('vcyjXKgq00U7MIpeHJZPR8UBUImwUBalq7fTo3CX', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiZE15ZmgzeUdjTmdLcktUSGF2cVRZcmNTd2hBMHpGOFcxZDZvQjBFSCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTA6Imh0dHBzOi8vaXNsYW1wb3VsdHJ5LmRldi9wdXJjaGFzZXMvcHVyY2hhc2UvY3JlYXRlIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MjoibG9naW5fYWRtaW5fNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1633937993);
+('7Y1ESfbqeZei0jafdZe09MyvZDtpmP57m550VBIi', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZVhPWGZmc09haXB5eWgxUU5qdVkwMzUzT3IxMU12MnA5R1BiaGFPWCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHBzOi8vaXNsYW1wb3VsdHJ5LmRldi9hZG1pbi9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1635156505),
+('d0eKk2Yl49dLwBXYCz0dJYy3AXGgbEfLFWnlO5ov', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoidHo4a2pUbTNyNDRWZnhraURJV1lVV1BNT3Rqdlc4Q0VLSU5HTHpBVSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTA6Imh0dHBzOi8vaXNsYW1wb3VsdHJ5LmRldi9wdXJjaGFzZXMvcHVyY2hhc2UvY3JlYXRlIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MjoibG9naW5fYWRtaW5fNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1635146881);
 
 -- --------------------------------------------------------
 
@@ -414,6 +441,12 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
+-- Indexes for table `inventory_products`
+--
+ALTER TABLE `inventory_products`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -513,10 +546,16 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `inventory_products`
+--
+ALTER TABLE `inventory_products`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
