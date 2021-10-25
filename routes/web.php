@@ -6,8 +6,11 @@ use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SupplierController;
+use App\Http\Controllers\Admin\PurchaseController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UnitController;
+use App\Http\Controllers\Admin\ProductInventroyController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +71,16 @@ Route::prefix('suppliers')->group(function(){
     Route::get('/delete/{id}',[SupplierController::class, 'softDelete'])->name('supplier.delete');
 });
 
+// admin product purchase route
+Route::prefix('purchases')->group(function(){
+    Route::resource('purchase',PurchaseController::class);
+    Route::get('/product/autocomplete',[PurchaseController::class, 'autocomplete'])->name('product.autocomplete');
+    Route::post('/autocomplete/getAutocomplete/',[PurchaseController::class, 'getAutocomplete'])->name('Autocomplte.getAutocomplte');
+    // Route::get('/delete/{id}',[PurchaseController::class, 'softDelete'])->name('purchase.delete');
+    Route::post('/product/supplier',[PurchaseController::class, 'getSupplierProducts'])->name('product.supplier');
+    Route::post('/product/retrive',[PurchaseController::class, 'getProducts'])->name('product.retreve');
+});
+
 // admin Product route
 Route::prefix('products')->group(function(){
     Route::resource('product',ProductController::class);
@@ -77,6 +90,28 @@ Route::prefix('products')->group(function(){
     Route::resource('unit',UnitController::class);
     Route::get('unit/delete/{id}',[UnitController::class, 'softDelete'])->name('unit.delete');
 });
+
+
+// admin Product route
+Route::prefix('inventory')->group(function(){
+    Route::get('product',[ProductInventroyController::class, 'index'])->name('inventory.index');
+    Route::get('product/create',[ProductInventroyController::class, 'create'])->name('inventory.crate');
+    Route::post('product/store',[ProductInventroyController::class, 'store'])->name('inventory.store');
+   
+
+});
+
+
+// setting route
+Route::prefix('setting')->group(function(){
+    
+    Route::get('payment/method',[PaymentController::class, 'paymenIndex'])->name('payment.index');
+    Route::get('add/payment/method',[PaymentController::class, 'paymentCreate'])->name('payment.create');
+    Route::post('payment/method/store',[PaymentController::class, 'paymentStore'])->name('payment.store');
+
+    Route::get('/payment/{id}/{s}',[PaymentController::class, 'PaymentStatus'])->name('pstatus');
+});
+
 
 
 Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function () {

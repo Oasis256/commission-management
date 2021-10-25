@@ -37,13 +37,13 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{ route('brand.index') }}" class="nav-link {{ $prefix == '/brands'? 'active':'' }}">
+            <a href="javascript:void(0)" class="nav-link {{ $prefix == '/brands'? 'active':'' }}">
               <i class="nav-icon fas fa-th"></i>
               <p>Brands <i class="fas fa-angle-left right"></i></p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="javascript:void(0)" class="nav-link {{ $route == 'brand.index' ? 'active':'' }}">
+                <a href="{{ route('brand.index') }}" class="nav-link {{ $route == 'brand.index' ? 'active':'' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>All Brand</p>
                 </a>
@@ -100,6 +100,27 @@
           </li>
 
           <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link {{ $prefix == '/purchases'? 'active':'' }}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>Purchase <i class="fas fa-angle-left right"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('purchase.index') }}" class="nav-link {{ $route == 'purchase.index' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Purchase</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('purchase.create') }}" class="nav-link {{ $route == 'purchase.create' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Purchase</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
             <a href="javascript:void(0)" class="nav-link {{ $prefix == '/products'? 'active':'' }}">
               <i class="nav-icon fas fa-th"></i>
               <p>Products <i class="fas fa-angle-left right"></i></p>
@@ -127,13 +148,34 @@
           </li>
 
           <li class="nav-item">
-            <a href="javascript:void(0)" class="nav-link {{ $prefix == '/products'? 'active':'' }}">
+            <a href="javascript:void(0)" class="nav-link {{ $prefix == '/inventory'? 'active':'' }}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>Inventory <i class="fas fa-angle-left right"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('purchase.index') }}" class="nav-link {{ $route == 'purchase.index' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Purchase</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('inventory.crate') }}" class="nav-link {{ $route == 'inventory.crate' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Inventory Create</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link {{ $prefix == '/setting' ? 'active':'' }}">
               <i class="nav-icon fas fa-th"></i>
               <p>Setting <i class="fas fa-angle-left right"></i></p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('product.index') }}" class="nav-link {{ $route == 'product.index' ? 'active':'' }}">
+                <a href="{{ route('payment.index') }}" class="nav-link {{ $route == 'payment.index' ? 'active':'' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Payment Method</p>
                 </a>

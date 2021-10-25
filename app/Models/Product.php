@@ -14,6 +14,11 @@ class Product extends Model
 
     public function supplier()
     {
-        return $this->belongsTo(Supplier::class,'supplier_id','id');
+        return $this->hasOne(Supplier::class,'supplier_id','id');
+    }
+
+    public function Purchase()
+    {
+        return $this->belongsToMany(Purchase::class, 'product_id','id');
     }
 }

@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>@yield('title','Dashboard')</title>
 
   <!-- Google Font: Source Sans Pro -->
@@ -16,8 +17,7 @@
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="{{ asset('contents/admin') }}/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- JQVMap -->
-  <link rel="stylesheet" href="{{ asset('contents/admin') }}/plugins/jqvmap/jqvmap.min.css">
+
   <!-- Theme style -->
   @stack('css')
   <link rel="stylesheet" href="{{ asset('contents/admin') }}/dist/css/adminlte.min.css">
@@ -27,6 +27,8 @@
   <link rel="stylesheet" href="{{ asset('contents/admin') }}/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('contents/admin') }}/plugins/summernote/summernote-bs4.min.css">
+
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -63,20 +65,11 @@
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ asset('contents/admin')}}/plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
-</script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('contents/admin')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- ChartJS -->
-<script src="{{ asset('contents/admin')}}/plugins/chart.js/Chart.min.js"></script>
-<!-- Sparkline -->
-<script src="{{ asset('contents/admin')}}/plugins/sparklines/sparkline.js"></script>
-<!-- JQVMap -->
-<script src="{{ asset('contents/admin')}}/plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="{{ asset('contents/admin')}}/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-<!-- jQuery Knob Chart -->
-<script src="{{ asset('contents/admin')}}/plugins/jquery-knob/jquery.knob.min.js"></script>
+
+
 <!-- daterangepicker -->
 <script src="{{ asset('contents/admin')}}/plugins/moment/moment.min.js"></script>
 <script src="{{ asset('contents/admin')}}/plugins/daterangepicker/daterangepicker.js"></script>
@@ -86,6 +79,7 @@
 <script src="{{ asset('contents/admin')}}/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="{{ asset('contents/admin')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+
 @stack('js')
 <!-- AdminLTE App -->
 <script src="{{ asset('contents/admin')}}/dist/js/adminlte.js"></script>
@@ -93,8 +87,10 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('contents/admin')}}/dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('contents/admin')}}/dist/js/pages/dashboard.js"></script>
+{{-- <script src="{{ asset('contents/admin')}}/dist/js/pages/dashboard.js"></script> --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 
 <script>
   @if(Session::has('messege'))
@@ -144,6 +140,8 @@
   });
 
 </script> 
+
+
 
 </body>
 </html>
