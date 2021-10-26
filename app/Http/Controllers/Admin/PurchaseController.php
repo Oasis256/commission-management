@@ -26,6 +26,10 @@ class PurchaseController extends Controller
 
     public function store(Request $request)
     {
+
+      //return $request;
+
+
         $request->validate([
             'date' => 'required',
             'supplier_id' => 'required',
@@ -57,8 +61,9 @@ class PurchaseController extends Controller
         $purchase->extra_two_commisition = $request->extra2_commisition;
         $purchase->payable_amount = $request->payable_amount;
         $purchase->paid_amount = $request->paid_amount;
-        // $purchase->due_amount = $request->due_amount;
-        // $purchase->change_amount = $request->change_amount;
+        $purchase->due = ($request->payable_amount>$request->paid_amount)?$request->payable_amount-$request->paid_amount:0;
+        $purchase->due_paid = ($request->payable_amount>$request->paid_amount)?$request->payable_amount-$request->paid_amount:0;
+        $purchase->return_amount = ($request->payable_amount<$request->paid_amount)?$request->paid_amount-$request->payable_amount:0;;
 
         $purchase->save();
 

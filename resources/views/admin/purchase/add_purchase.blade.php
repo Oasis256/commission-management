@@ -178,7 +178,7 @@
                                     <th class="w-10 text-center">Quantity</th>
                                     <th class="w-10 text-center">Cost</th>
                                     <th class="w-10 text-center">Sell Price</th>
-                                    <th class="w-10 text-center">List commision </th>
+                                    <th class="w-10 text-center">List commisition </th>
                                     <th class="w-10 text-center">Item Total</th>
                                     <th class="w-5 text-center">
                                         <i class="fas fa-trash text-danger"></i>
@@ -213,7 +213,7 @@
                                             name="sell_price" id="sell_price" style="font-size: 13px;" readonly>
                                     </td>
                                     <td class="text-center" data-title="Tax Amount">
-                                        <span id="list_commision" name="list_commision" class=""
+                                        <span id="list_commisition" name="list_commisition" class=""
                                             style="font-size: 13px;">0.00</span>
                                     </td>
                                     <td class="text-right" data-title="Total">
@@ -247,63 +247,70 @@
                                     <th class="w-25p">&nbsp;</th>
                                 </tr>
                                 <tr class="bg-gray">
-                                    <th class="text-right" colspan="6">Instat commision (%)</th>
+                                    <th class="text-right" colspan="6">Instat commisition (%)</th>
                                     <th class="col-sm-2 text-right">
-                                        <input id="instant_commision" onkeypress="isInputNumber(event)"
-                                            class="text-right" type="taxt" name="instant_commision" value="0">
+                                        <input id="instant_commisition" onkeypress="isInputNumber(event)"
+                                            class="text-right" type="taxt" name="instant_commisition" value="0">
                                     </th>
                                     <th class="w-25p">&nbsp;</th>
                                 </tr>
                                 <tr class="bg-gray">
-                                    <th class="text-right" colspan="6">Monthly commision</th>
+                                    <th class="text-right" colspan="6">Monthly commisition</th>
                                     <th class="col-sm-2 text-right">
-                                        <input id="monthly_commision" onkeypress="isInputNumber(event)"
-                                            class="text-right" type="taxt" name="monthly_commision" value="0">
+                                        <input id="monthly_commisition" onkeypress="isInputNumber(event)"
+                                            class="text-right" type="taxt" name="monthly_commisition" value="0">
                                     </th>
                                     <th class="w-25p">&nbsp;</th>
                                 </tr>
                                 <tr class="bg-gray">
-                                    <th class="text-right" colspan="6">Yearly commision</th>
+                                    <th class="text-right" colspan="6">Yearly commisition</th>
                                     <th class="col-sm-2 text-right">
-                                        <input id="yearly_commision" onkeypress="isInputNumber(event)"
-                                            class="text-right" type="taxt" name="yearly_commision" value="0">
+                                        <input id="yearly_commisition" onkeypress="isInputNumber(event)"
+                                            class="text-right" type="taxt" name="yearly_commisition" value="0">
                                     </th>
                                     <th class="w-25p">&nbsp;</th>
                                 </tr>
                                 <tr class="bg-gray">
-                                    <th class="text-right" colspan="6">Transport commision</th>
+                                    <th class="text-right" colspan="6">Transport commisition</th>
                                     <th class="col-sm-2 text-right">
-                                        <input id="transport_commision" onkeypress="isInputNumber(event)"
-                                            class="text-right" type="taxt"
-                                             name="transport_commision"
-                                             value="0">
+                                        <input id="transport_commisition" onkeypress="isInputNumber(event)"
+                                            class="text-right" type="taxt" name="transport_commisition" value="0">
                                     </th>
                                     <th class="w-25p">&nbsp;</th>
                                 </tr>
                                 <tr class="bg-gray">
-                                    <th class="text-right" colspan="6">Extra-1 commision</th>
+                                    <th class="text-right" colspan="6">Extra-1 commisition</th>
                                     <th class="col-sm-2 text-right">
-                                        <input id="extra1_commision" onkeypress="isInputNumber(event)"
-                                            class="text-right" type="taxt" name="extra1_commision" value="0">
+                                        <input id="extra1_commisition" onkeypress="isInputNumber(event)"
+                                            class="text-right" type="taxt" name="extra1_commisition" value="0">
                                     </th>
                                     <th class="w-25p">&nbsp;</th>
                                 </tr>
                                 <tr class="bg-gray">
-                                    <th class="text-right" colspan="6">Extra-2 commision</th>
+                                    <th class="text-right" colspan="6">Extra-2 commisition</th>
                                     <th class="col-sm-2 text-right">
-                                        <input id="extra2_commision" onkeypress="isInputNumber(event)"
-                                            class="text-right" type="taxt" name="extra2_commision" value="0">
+                                        <input id="extra2_commisition" onkeypress="isInputNumber(event)"
+                                            class="text-right" type="taxt" name="extra2_commisition" value="0">
                                     </th>
                                     <th class="w-25p">&nbsp;</th>
                                 </tr>
                                 <tr class="bg-info">
                                     <th class="text-right" colspan="6">Payable Amount </th>
                                     <th class="col-sm-2 text-right">
-                                        {{-- <input type="hidden" name="payable_amount" value="0" id="payable_amount"> --}}
-                                        <h4 class="text-center" id="payable_amount"><b>0.00</b></h4>
+                                        <input type="hidden" name="payable_amount" value="0" id="payable_amount">
+                                        <h4 class="text-center" id="payable_amount_text"><b>0.00</b></h4>
                                     </th>
                                     <th class="w-25p">&nbsp;</th>
                                 </tr>
+                                <tr class="bg-warning">
+                                    <th class="text-right" colspan="6">Per Product Cost </th>
+                                    <th class="col-sm-2 text-right">
+                                        <input type="hidden" name="per_product_cost" value="0" id="per_product_cost">
+                                        <h4 class="text-center" id="per_product_cost_text"><b>0.00</b></h4>
+                                    </th>
+                                    <th class="w-25p">&nbsp;</th>
+                                </tr>
+
                                 <tr class="bg-blue">
                                     <th class="text-right" colspan="6">Payment Method</th>
                                     <th class="col-sm-2 text-center">
@@ -445,34 +452,34 @@
 
 
 
-        $('#instant_commision').change(function() {
-            getcommision()
+        $('#instant_commisition').change(function() {
+            getcommisition()
 
         });
 
-        $('#monthly_commision').change(function() {
-            getcommision()
+        $('#monthly_commisition').change(function() {
+            getcommisition()
 
         });
 
-        $('#yearly_commision').change(function() {
-            getcommision()
+        $('#yearly_commisition').change(function() {
+            getcommisition()
 
         });
 
-        $('#transport_commision').change(function() {
-            getcommision();
-           
+        $('#transport_commisition').change(function() {
+            getcommisition();
+
 
         });
 
-        $('#extra1_commision').change(function() {
-            getcommision()
+        $('#extra1_commisition').change(function() {
+            getcommisition()
 
         });
 
-        $('#extra2_commision').change(function() {
-            getcommision()
+        $('#extra2_commisition').change(function() {
+            getcommisition()
 
         });
 
@@ -486,8 +493,8 @@
             sub_total = quantity * cost_price;
             $('#subtotal').html(sub_total);
             $('#itemtotal').html(sub_total);
-            $('#payable_amount').html(sub_total);
-
+            $('#payable_amount').val(sub_total);
+            $('#payable_amount_text').html($('#payable_amount').val());
 
 
 
@@ -495,63 +502,69 @@
         }
 
 
-        function getcommision() {
-            let instant_commision = $('#instant_commision').val();
-            let yearly_commision = $('#yearly_commision').val();
-            let monthly_commision = $('#monthly_commision').val();
-            let transport_commision = $('#transport_commision').val();
-            let extra1_commision = $('#extra1_commision').val();
-            let extra2_commision = $('#extra2_commision').val();
+        function getcommisition() {
+            let instant_commisition = $('#instant_commisition').val();
+            let yearly_commisition = $('#yearly_commisition').val();
+            let monthly_commisition = $('#monthly_commisition').val();
+            let transport_commisition = $('#transport_commisition').val();
+            let extra1_commisition = $('#extra1_commisition').val();
+            let extra2_commisition = $('#extra2_commisition').val();
+            let per_product_cost = $('#per_product_cost').val();
 
             //get  commisson of sub total
-            let inst_commision = sub_total * (instant_commision / 100);
+            let inst_commisition = sub_total * (instant_commisition / 100);
 
             //get instant commission 
-            let inst_com = sub_total - inst_commision;
-            console.log('Instant commision ' + inst_com);
+            let inst_com = sub_total - inst_commisition;
+            console.log('Instant commisition ' + inst_com);
 
             //get commission of month
-            let montly_com = inst_com - monthly_commision;
-            console.log('Monthly Commision: ' + montly_com)
+            let montly_com = inst_com - monthly_commisition;
+            console.log('Monthly commisition: ' + montly_com)
 
             //get commission of yearly
-            let yearly_com = montly_com - yearly_commision;
-            console.log('yearly_commision Commision: ' + yearly_com);
+            let yearly_com = montly_com - yearly_commisition;
+            console.log('yearly_commisition commisition: ' + yearly_com);
 
             //get commission of transport
-            let transport_com = yearly_com - transport_commision;
-            console.log('transport_commision Commision: ' + transport_com)
+            let transport_com = yearly_com - transport_commisition;
+            console.log('transport_commisition commisition: ' + transport_com)
 
 
             //get commission of extra 1
-            let extra1_amount = transport_com - extra1_commision;
-            console.log('extra1_commision Commision: ' + extra1_amount)
+            let extra1_amount = transport_com - extra1_commisition;
+            console.log('extra1_commisition commisition: ' + extra1_amount)
 
 
             //get commission of extra2
-            let extra2_amount = extra1_amount - extra2_commision;
-            console.log('extra2_commision Commision: ' + extra2_amount)
+            let extra2_amount = extra1_amount - extra2_commisition;
+            console.log('extra2_commisition commisition: ' + extra2_amount)
 
 
-            $('#payable_amount').html(extra2_amount);
+            $('#payable_amount').val(extra2_amount);
+            $('#payable_amount_text').html($('#payable_amount').val());
+            let per_amount = extra2_amount / $('#quantity').val();
+            $('#per_product_cost').val(per_amount);
+            $('#per_product_cost_text').html(per_amount);
+
             //$('#paid_amount').val(sub_total);
 
 
-            // let montly_com = inst_com * monthly_commision / 100;
+            // let montly_com = inst_com * monthly_commisition / 100;
             // let month_com = inst_com - montly_com;
-            // console.log('Monthly commision ' + month_com);
+            // console.log('Monthly commisition ' + month_com);
 
 
-            // let yearly_com = month_com * yearly_commision / 100;
+            // let yearly_com = month_com * yearly_commisition / 100;
             // let year_com = yearly_com - month_com;
-            // //console.log('Yearly commision ' + year_com);
+            // //console.log('Yearly commisition ' + year_com);
 
-            // let extra1_com = yearly_com * extra1_commision / 100;
+            // let extra1_com = yearly_com * extra1_commisition / 100;
             // let extra01_com = extra1_com - year_com;
             // //console.log('cxtra 1 ' + extra01_com);
 
 
-            // let extra2_com = yearly_com * extra2_commision / 100;
+            // let extra2_com = yearly_com * extra2_commisition / 100;
             // let extra02_com = extra2_com - extra01_com;
             // console.log('cxtra 2 ' + extra02_com);
 
