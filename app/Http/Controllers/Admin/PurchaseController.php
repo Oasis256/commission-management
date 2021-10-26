@@ -7,6 +7,7 @@ use App\Models\Pmethod;
 use App\Models\Product;
 use App\Models\Purchase;
 use App\Models\Supplier;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
@@ -38,7 +39,7 @@ class PurchaseController extends Controller
         ]);
 
         $purchase = new Purchase();
-        $purchase->today_date = $request->date;
+        $purchase->today_date = Carbon::now();
         $purchase->reference_no = $request->reference_no;
         $purchase->note = $request->note;
         $purchase->supplier_id = $request->supplier_id;
@@ -56,8 +57,8 @@ class PurchaseController extends Controller
         $purchase->extra_two_commisition = $request->extra2_commisition;
         $purchase->payable_amount = $request->payable_amount;
         $purchase->paid_amount = $request->paid_amount;
-        $purchase->due_amount = $request->due_amount;
-        $purchase->change_amount = $request->change_amount;
+        // $purchase->due_amount = $request->due_amount;
+        // $purchase->change_amount = $request->change_amount;
 
         $purchase->save();
 
@@ -65,7 +66,7 @@ class PurchaseController extends Controller
             'messege' => 'Product Purchase Successfully',
             'alert-type' => 'success'
         );
-        return redirect()->route('purchase.index')->with($notification);
+        return redirect()->back()->with($notification);
     }
 
     public function show($id)
