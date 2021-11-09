@@ -44,7 +44,7 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{ route('brand.index') }}" class="nav-link {{ $route == 'brand.index' ? 'active':'' }}">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fab fa-bandcamp"></i>
                   <p>All Brand</p>
                 </a>
               </li>
@@ -59,7 +59,7 @@
 
           <li class="nav-item">
             <a href="javascript:void(0)" class="nav-link {{ $prefix == '/categories'? 'active':'' }}">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="fas fa-hand-holding-medical"></i>
               <p>Categories <i class="fas fa-angle-left right"></i></p>
             </a>
             <ul class="nav nav-treeview">
@@ -80,7 +80,7 @@
 
           <li class="nav-item">
             <a href="javascript:void(0)" class="nav-link {{ $prefix == '/suppliers'? 'active':'' }}">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="fas fa-ticket-alt"></i>
               <p>Supplier <i class="fas fa-angle-left right"></i></p>
             </a>
             <ul class="nav nav-treeview">
@@ -100,8 +100,29 @@
           </li>
 
           <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link {{ $prefix == '/store'? 'active':'' }}">
+              <i class="fas fa-users"></i>
+              <p>Customer <i class="fas fa-angle-left right"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('customer.index') }}" class="nav-link {{ $route == 'customer.index' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Customer</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('customer.create') }}" class="nav-link {{ $route == 'customer.create' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Customer</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
             <a href="javascript:void(0)" class="nav-link {{ $prefix == '/purchases'? 'active':'' }}">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="fas fa-shopping-bag"></i>
               <p>Purchase <i class="fas fa-angle-left right"></i></p>
             </a>
             <ul class="nav nav-treeview">
@@ -122,7 +143,7 @@
 
           <li class="nav-item">
             <a href="javascript:void(0)" class="nav-link {{ $prefix == '/products'? 'active':'' }}">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="fas fa-shopping-cart"></i>
               <p>Products <i class="fas fa-angle-left right"></i></p>
             </a>
             <ul class="nav nav-treeview">
@@ -147,7 +168,7 @@
             </ul>
           </li>
 
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="javascript:void(0)" class="nav-link {{ $prefix == '/inventory'? 'active':'' }}">
               <i class="nav-icon fas fa-th"></i>
               <p>Inventory <i class="fas fa-angle-left right"></i></p>
@@ -166,11 +187,84 @@
                 </a>
               </li>
             </ul>
+          </li> --}}
+
+          <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link {{ $prefix == '/sell'? 'active':'' }}">
+              <i class="fas fa-chart-bar"></i>
+              <p>Sell <i class="fas fa-angle-left right"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('sell.list') }}" class="nav-link {{ $route == 'sell.list' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sell List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('sell.add') }}" class="nav-link {{ $route == 'sell.add' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Sell</p>
+                </a>
+              </li>
+              
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="javascript:void(0)" class="nav-link {{ $prefix == '/report'? 'active':'' }}">
+              <i class="fas fa-chart-bar"></i>
+              <p>Reports <i class="fas fa-angle-left right"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('stock.index') }}" class="nav-link {{ $route == 'stock.index' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Stock Product</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{ route('commisition.index') }}" class="nav-link {{ $route == 'commisition.index' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Commission List</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{ route('total.commisition') }}" class="nav-link {{ $route == 'total.commisition' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Total Commission</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{ route('balance.commisition') }}" class="nav-link {{ $route == 'balance.commisition' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Commission Balance</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{ route('sell.report') }}" class="nav-link {{ $route == 'sell.report' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sell Report</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{ route('purchase.report') }}" class="nav-link {{ $route == 'purchase.report' ? 'active':'' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Purchase Report</p>
+                </a>
+              </li>
+              
+            </ul>
           </li>
 
           <li class="nav-item">
             <a href="javascript:void(0)" class="nav-link {{ $prefix == '/setting' ? 'active':'' }}">
-              <i class="nav-icon fas fa-th"></i>
+              <i class="fas fa-cog"></i>
               <p>Setting <i class="fas fa-angle-left right"></i></p>
             </a>
             <ul class="nav nav-treeview">
@@ -185,15 +279,6 @@
           </li>
 
 
-          <li class="nav-item">
-            <a href="pages/kanban.html" class="nav-link">
-              <i class="nav-icon fas fa-columns"></i>
-              <p>
-                Kanban Board
-              </p>
-            </a>
-          </li>
-          <li class="nav-header">MISCELLANEOUS</li> 
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

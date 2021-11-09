@@ -86,7 +86,7 @@
                                     <label for="datepicker" class="col-form-label" style="width: 160px;">Date<span
                                             class="text-danger">*</span> </label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control mydate" name="date" id="datepicker">
+                                        <input type="text" class="form-control mydate" name="date" id="datepicker" value="<?php echo date('m/d/Y'); ?>">
                                         @error('date')
                                             <span class="invalid-feedback" style="display:block">
                                                 <strong class="text-danger">{{ $message }}</strong>
@@ -503,42 +503,42 @@
 
 
         function getcommisition() {
-            let instant_commisition = $('#instant_commisition').val();
-            let yearly_commisition = $('#yearly_commisition').val();
-            let monthly_commisition = $('#monthly_commisition').val();
-            let transport_commisition = $('#transport_commisition').val();
-            let extra1_commisition = $('#extra1_commisition').val();
-            let extra2_commisition = $('#extra2_commisition').val();
-            let per_product_cost = $('#per_product_cost').val();
+            let instant_commisition = $('#instant_commisition').val() * $('#quantity').val();
+            let yearly_commisition = $('#yearly_commisition').val() * $('#quantity').val();
+            let monthly_commisition = $('#monthly_commisition').val() * $('#quantity').val();
+            let transport_commisition = $('#transport_commisition').val() * $('#quantity').val();
+            let extra1_commisition = $('#extra1_commisition').val() * $('#quantity').val();
+            let extra2_commisition = $('#extra2_commisition').val() * $('#quantity').val();
+            let per_product_cost = $('#per_product_cost').val() * $('#quantity').val();
 
             //get  commisson of sub total
             let inst_commisition = sub_total * (instant_commisition / 100);
 
             //get instant commission 
             let inst_com = sub_total - inst_commisition;
-            console.log('Instant commisition ' + inst_com);
+            //console.log('Instant commisition ' + inst_com);
 
             //get commission of month
             let montly_com = inst_com - monthly_commisition;
-            console.log('Monthly commisition: ' + montly_com)
+            //console.log('Monthly commisition: ' + montly_com)
 
             //get commission of yearly
             let yearly_com = montly_com - yearly_commisition;
-            console.log('yearly_commisition commisition: ' + yearly_com);
+            //console.log('yearly_commisition commisition: ' + yearly_com);
 
             //get commission of transport
             let transport_com = yearly_com - transport_commisition;
-            console.log('transport_commisition commisition: ' + transport_com)
+            //console.log('transport_commisition commisition: ' + transport_com)
 
 
             //get commission of extra 1
             let extra1_amount = transport_com - extra1_commisition;
-            console.log('extra1_commisition commisition: ' + extra1_amount)
+            //console.log('extra1_commisition commisition: ' + extra1_amount)
 
 
             //get commission of extra2
             let extra2_amount = extra1_amount - extra2_commisition;
-            console.log('extra2_commisition commisition: ' + extra2_amount)
+            //console.log('extra2_commisition commisition: ' + extra2_amount)
 
 
             $('#payable_amount').val(extra2_amount);

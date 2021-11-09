@@ -152,12 +152,7 @@
                     </div>
                 </div>
 
-                 <div class="form-group row">
-                    <label for="alert_quantity" class="col-form-label" style="width: 160px;">Alert Quantity</label>
-                    <div class="col-sm-10">
-                    <input type="text" class="form-control" name="alert_quantity" id="alert_quantity">
-                    </div>
-                 </div>
+                
 
                   <div class="form-group row">
                     <label for="status" class="col-form-label" style="width: 160px;">Status <span class="text-danger">*</span></label>

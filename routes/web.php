@@ -6,11 +6,16 @@ use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SupplierController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\PurchaseController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\CommissionController;
 use App\Http\Controllers\Admin\UnitController;
+use App\Http\Controllers\Admin\SellController;
 use App\Http\Controllers\Admin\ProductInventroyController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ChartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +29,7 @@ use App\Http\Controllers\PaymentController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('admin.login');
 });
 
 Route::get('/login', function() {
@@ -35,6 +40,8 @@ Route::get('/register', function() {
     return redirect()->route('admin.login');
 });
 
+
+
 Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function(){
     Route::get('/login',[AdminController::class, 'loginForm']);   
     Route::post('/login',[AdminController::class, 'store'])->name('admin.login');   
@@ -43,6 +50,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function(){
 
 Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
     return view('admin.index');
+   
 })->name('admin.dashboard');
 
 
@@ -71,14 +79,25 @@ Route::prefix('suppliers')->group(function(){
     Route::get('/delete/{id}',[SupplierController::class, 'softDelete'])->name('supplier.delete');
 });
 
+// Product Customer route
+Route::prefix('store')->group(function(){
+    Route::resource('customer',CustomerController::class);
+    Route::get('/delete/{id}',[CustomerController::class, 'CustomerDelete'])->name('customer.delete');
+        
+});
+
+
 // admin product purchase route
 Route::prefix('purchases')->group(function(){
     Route::resource('purchase',PurchaseController::class);
     Route::get('/product/autocomplete',[PurchaseController::class, 'autocomplete'])->name('product.autocomplete');
     Route::post('/autocomplete/getAutocomplete/',[PurchaseController::class, 'getAutocomplete'])->name('Autocomplte.getAutocomplte');
-    // Route::get('/delete/{id}',[PurchaseController::class, 'softDelete'])->name('purchase.delete');
+    Route::get('/delete/{id}',[PurchaseController::class, 'purchaseDelete'])->name('purchase.delete');
     Route::post('/product/supplier',[PurchaseController::class, 'getSupplierProducts'])->name('product.supplier');
     Route::post('/product/retrive',[PurchaseController::class, 'getProducts'])->name('product.retreve');
+
+
+    Route::post('/due/paid',[PurchaseController::class, 'DuePaid'])->name('due.paid');
 });
 
 // admin Product route
@@ -99,6 +118,46 @@ Route::prefix('inventory')->group(function(){
     Route::post('product/store',[ProductInventroyController::class, 'store'])->name('inventory.store');
    
 
+});
+
+// Product stock route
+Route::prefix('report')->group(function(){
+    Route::get('/product/stock',[ReportController::class, 'ProductStock'])->name('stock.index');
+    Route::get('/product/commisition',[CommissionController::class, 'ProductCommisition'])->name('commisition.index');
+    Route::get('/total/commisition',[CommissionController::class, 'TotalCommisition'])->name('total.commisition');
+    Route::get('/commisition/balance',[CommissionController::class, 'CommisitionBalance'])->name('balance.commisition');
+
+
+    //all purchase report route
+    Route::get('/purchase',[ReportController::class, 'PurchaseReport'])->name('purchase.report');
+    Route::get('/purchase/today',[ReportController::class, 'todayPurchaseReport'])->name('today.purchase.report');
+    Route::get('/purchase/last/7days',[ReportController::class, 'SevenDaysPurchaseReport'])->name('seven.days.purchase.report');
+    Route::get('/purchase/last/month',[ReportController::class, 'MonthPurchaseReport'])->name('month.purchase.report');
+    Route::get('/purchase/last/year',[ReportController::class, 'YearPurchaseReport'])->name('year.purchase.report');
+    Route::post('/get/form/to/purchase',[ReportController::class, 'FormToGetPurchase'])->name('form.to.purchase');
+
+    //all sell report route
+    Route::get('/sell',[SellController::class, 'SellReport'])->name('sell.report');
+    Route::get('/sell/today',[SellController::class, 'todaySellReport'])->name('today.sell.report');
+    Route::get('/sell/last/7days',[SellController::class, 'SevenDaysSellReport'])->name('seven.days.sell.report');
+    Route::get('/sell/last/month',[SellController::class, 'MonthSellReport'])->name('month.sell.report');
+    Route::get('/sell/last/year',[SellController::class, 'YearSellReport'])->name('year.sell.report');
+    Route::post('/get/form/to/sell',[SellController::class, 'FormToGet'])->name('form.to.get');
+
+      
+});
+
+// Product stock route
+Route::prefix('sell')->group(function(){
+    Route::get('/list',[SellController::class, 'sellList'])->name('sell.list');
+    Route::get('/add',[SellController::class, 'sellAdd'])->name('sell.add');
+    Route::post('/store',[SellController::class, 'sellStore'])->name('sell.store');
+    Route::get('/view/{id}',[SellController::class, 'sellView'])->name('sell.view');
+    Route::get('/due/paid/{id}',[SellController::class, 'Duepaid'])->name('customer.due.paid');
+    Route::get('/delete/{id}',[SellController::class, 'sellDelete'])->name('sell.delete');
+    Route::post('/product/retrive',[SellController::class, 'getProducts'])->name('sell.product.retreve');
+
+      
 });
 
 

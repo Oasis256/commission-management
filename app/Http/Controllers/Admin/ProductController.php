@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Purchase;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Models\Unit;
@@ -17,6 +18,8 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::latest()->get();
+        $singlesupplier = Supplier::where('status',1)->firstOrFail();
+        //$purchase_product = Purchase::select('quantity')->where('product_id',$products)->sum('quantity');
         return view('admin.product.all_product',compact('products'));
     }
 
@@ -56,7 +59,6 @@ class ProductController extends Controller
                 'product_name' => $request->product_name,
                 'product_code' => $request->product_code,
                 'product_price' => $request->product_price,
-                'alert_quantity' => $request->alert_quantity,
                 'product_image' => $save_url,
                 'status' => $request->status,
                 'created_at' => Carbon::now()
@@ -71,7 +73,6 @@ class ProductController extends Controller
                 'product_name' => $request->product_name,
                 'product_code' => $request->product_code,
                 'product_price' => $request->product_price,
-                'alert_quantity' => $request->alert_quantity,
                 'status' => $request->status,
                 'created_at' => Carbon::now()
             ]);
@@ -147,7 +148,7 @@ class ProductController extends Controller
                 'product_price' => $request->product_price,
                 'alert_quantity' => $request->alert_quantity,
                 'status' => $request->status,
-                'created_at' => Carbon::now()
+                'updated_at' => Carbon::now()
             ]);
 
        }

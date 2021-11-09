@@ -1,30 +1,31 @@
 @extends('admin.admin_master')
-@section('title', 'Admin All Payment method')
+@section('title', 'Sell Report')
 
 @push('css')
     <link rel="stylesheet" href="{{ asset('contents/admin') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="{{ asset('contents/admin') }}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="{{ asset('contents/admin') }}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
-
-    <style>
-      .loading {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            z-index: 2;
-            transform: translate(-50px, -50px);
-            display: none;
-        }
-
-        .loading img {
-            width: 150px;
-        }
-    </style>
-
+    
 @endpush
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+    $(function() {
+        $("#datepicker").datepicker();
+    });
+
+    $(function() {
+        $("#datepicker1").datepicker();
+    });
+</script>
+
 @section('admin_content')
+
+
 
 <section class="content-header">
     <div class="container-fluid">
@@ -35,7 +36,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{ url('/admin/dashboard') }}">Home</a></li>
-            <li class="breadcrumb-item active">All Payment Method</li>
+            <li class="breadcrumb-item active">Sell Report</li>
           </ol>
         </div>
       </div>
@@ -45,9 +46,6 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <div class="loading">
-          <img src="{{ asset('upload/loader.gif') }}" alt="">
-        </div>
           
         <div class="row">
           <div class="col-12">
@@ -55,10 +53,10 @@
               <div class="card-header" style="background:#1f2d3d">
                 <div class="row">
                     <div class="col-md-6">
-                        <h3 class="card-title mt-1 text-light"> <strong>All Payment Method Information</strong> </h3>
+                        <h3 class="card-title mt-1 text-light"> <strong>Sell Report Information</strong> </h3>
                     </div>
                     <div class="col-md-6 text-right">
-                        <a href="{{ route('payment.create') }}" class="btn btn-primary btn-sm"><i class="fas fa-plus-square mr-1"></i> Add Payment Method</a>
+                       
                     </div>
                 </div>
               </div>
@@ -67,31 +65,41 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>S1 No.</th>
+                    <th>Date</th>
                     <th>Name</th>
-                    <th>Details</th>
-                    <th>Status</th>
-                    <th>Created At</th>
+                    <th>Customer</th>
+                    <th>Payment</th>
+                    <th>Invoice No</th>
+                    <th>Amount</th>
+                    <th>Paid</th>
+                    <th>Quantity</th>
+                    <th>Due</th>
                     <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
-                  @foreach ($pmethods as $key=>$pmethod)
+                  @foreach ($sells as $key=>$sell)
                   <tr>
-                    <td>{{ $key + 1 }}</td>
-                    <td>{{ $pmethod->payment_name }}</td>
-                    <td>{{ $pmethod->payment_details }}</td>
-                     <td>
-                       <input type="checkbox" data-toggle="toggle" data-on="On" data-size="sm" id="pstatus" data-id="{{ $pmethod->id }}" data-off="Off" {{ $pmethod->status == 1 ? 'checked':'' }} data-onstyle="primary" data-offstyle="warning">
-                     </td>
-                    <td>{{ $pmethod->created_at->diffForHumans() }}</td>
+                    <td>{{ $sell->date }}</td>
+                    <td>{{ $sell->product->product_name }}</td>
+                    <td>{{ $sell->customer->name }}</td>
+                    <td>{{ $sell->pmethod->payment_name }}</td>
+                    <td>{{ $sell->invoice_no }}</td>
+                    <td>{{ $sell->payable_amount }}TK</td>
+                    <td>{{ $sell->paid_amount }}TK</td>
+                    <td>{{ $sell->quantity }}</td>
+                    <td>{{ $sell->due }}TK</td>
                     <td>
-                       
-                        <a href="#" class="btn btn-sm btn-info disabled"><i class="fas fa-pencil-alt">
-                        </i> Edit</a>
-                         <a href="#" class="btn btn-sm btn-danger disabled" id="delete"><i class="fas fa-trash"></i> Delete</a>
+                      @if($sell->due == 0)
+                      @else 
+                         <a title="Due Pay" href="{{ route('customer.due.paid',$sell->id) }}" class="btn btn-sm btn-success"><i class="fas fa-money-bill-alt"></i></a>
+                      @endif
+                        <a title="Purchase View" href="{{ route('sell.view',$sell->id) }}" class="btn btn-sm btn-info"><i class="fas fa-eye">
+                        </i></a>
+                         {{-- <a title="delete" href="{{ route('sell.delete',$sell->id) }}" class="btn btn-sm btn-danger" id="delete"><i class="fas fa-trash"></i></a> --}}
                     </td>
                   </tr> 
+
                   @endforeach
                   </tbody>
                 </table>
@@ -112,6 +120,7 @@
 <!-- ./wrapper -->
 
 
+
 @endsection
 
 @push('js')
@@ -128,35 +137,7 @@
 <script src="{{ asset('contents/admin') }}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="{{ asset('contents/admin') }}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="{{ asset('contents/admin') }}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
-<script>
-    $('body').on('change','#pstatus', function(){
-        let id = $(this).attr('data-id');
-        
-        if(this.checked){
-            var status = 1;
-        }else{
-            var status = 0;
-        }
-       $.ajax({
-           url:'/setting/payment/'+id+'/'+status,
-           method:'get',
-           beforeSend(){
-              $('.loading').css('display', 'block');
-            },
-           success: function(result){
-             toastr.success(result.messege);
-           },
-           complete(){
-            $('.loading').css('display', 'none');
-           }
-       });
-  
-  
-    });
-  
-  </script>
 
 <script>
   $(function () {
@@ -174,9 +155,5 @@
       "responsive": true,
     });
   });
-
 </script>
-
-
-
 @endpush

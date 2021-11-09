@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
             $table->string('product_name');
             $table->string('product_code')->unique();
             $table->double('product_price');
-            $table->integer('alert_quantity')->nullable();
+            $table->integer('product_quantity')->default(0)->nullable();
             $table->string('product_image')->nullable();
             $table->integer('status')->default(1);
             $table->timestamps();

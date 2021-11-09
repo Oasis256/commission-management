@@ -13,12 +13,23 @@
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard v1</li>
+          <li class="breadcrumb-item active">Dashboard</li>
         </ol>
       </div>
     </div>
   </div>
 </div>
+
+@php
+     $date = date('Y-m-d');
+     $today_sale = App\Models\Sell::where('status',1)->where('date',$date)->sum('payable_amount');
+     $today_sale_paid = App\Models\Sell::where('status',1)->where('date',$date)->sum('paid_amount');
+     $today_sale_due = App\Models\Sell::where('status',1)->where('date',$date)->sum('due');
+     $customers = App\Models\Customer::orderBy('id','DESC')->get();
+
+     $date = date('Y-m-d');
+      $sells = App\Models\Sell::where('status',1)->latest()->limit(5)->get();
+@endphp
 
 <div class="container-fluid">
     <!-- Small boxes (Stat box) -->
@@ -27,14 +38,13 @@
         <!-- small box -->
         <div class="small-box bg-info">
           <div class="inner">
-            <h3>150</h3>
+            <h3>{{ $today_sale }}TK</h3>
 
-            <p>New Orders</p>
+            <p> <strong>Today Sale</strong> </p>
           </div>
           <div class="icon">
             <i class="ion ion-bag"></i>
           </div>
-          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -42,14 +52,14 @@
         <!-- small box -->
         <div class="small-box bg-success">
           <div class="inner">
-            <h3>53<sup style="font-size: 20px">%</sup></h3>
+            <h3>{{ $today_sale_paid  }}TK</h3>
 
-            <p>Bounce Rate</p>
+            <p> <strong>Today Sell Paid</strong> </p>
           </div>
           <div class="icon">
             <i class="ion ion-stats-bars"></i>
           </div>
-          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+         
         </div>
       </div>
       <!-- ./col -->
@@ -57,14 +67,13 @@
         <!-- small box -->
         <div class="small-box bg-warning">
           <div class="inner">
-            <h3>44</h3>
+            <h3>{{ $today_sale_due }}TK</h3>
 
-            <p>User Registrations</p>
+            <p> <strong>Today Sell Due</strong> </p>
           </div>
           <div class="icon">
             <i class="ion ion-person-add"></i>
           </div>
-          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -72,19 +81,55 @@
         <!-- small box -->
         <div class="small-box bg-danger">
           <div class="inner">
-            <h3>65</h3>
+            <h3>{{ $customers->count() }}</h3>
 
-            <p>Unique Visitors</p>
+            <p> <strong>Total Customer</strong> </p>
           </div>
           <div class="icon">
             <i class="ion ion-pie-graph"></i>
           </div>
-          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <!-- ./col -->
     </div>
     <!-- /.row -->
+
+    <div class="row">
+      <table id="example1" class="table table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>Date</th>
+          <th>Name</th>
+          <th>Customer</th>
+          <th>Invoice No</th>
+          <th>Paid</th>
+          <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach ($sells as $key=>$sell)
+        <tr>
+          <td>{{ $sell->date }}</td>
+          <td>{{ $sell->product->product_name }}</td>
+          <td>{{ $sell->customer->name }}</td>
+          <td>{{ $sell->invoice_no }}</td>
+          <td>{{ $sell->paid_amount }}TK</td>
+
+          <td>
+            @if($sell->due == 0)
+              <span class="badge badge-success">Paid</span>
+            @else 
+            <span class="badge badge-danger">Due</span>
+            @endif
+          </td>
+        </tr> 
+
+        @endforeach
+        </tbody>
+      </table>
+    </div>
+
+
 </div>
 
 

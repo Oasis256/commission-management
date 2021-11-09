@@ -1,27 +1,10 @@
 @extends('admin.admin_master')
-@section('title', 'Admin All Payment method')
+@section('title', 'Product Stock Information')
 
 @push('css')
     <link rel="stylesheet" href="{{ asset('contents/admin') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="{{ asset('contents/admin') }}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="{{ asset('contents/admin') }}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
-
-    <style>
-      .loading {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            z-index: 2;
-            transform: translate(-50px, -50px);
-            display: none;
-        }
-
-        .loading img {
-            width: 150px;
-        }
-    </style>
-
 @endpush
 
 @section('admin_content')
@@ -35,7 +18,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="{{ url('/admin/dashboard') }}">Home</a></li>
-            <li class="breadcrumb-item active">All Payment Method</li>
+            <li class="breadcrumb-item active">All Stock</li>
           </ol>
         </div>
       </div>
@@ -45,9 +28,6 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <div class="loading">
-          <img src="{{ asset('upload/loader.gif') }}" alt="">
-        </div>
           
         <div class="row">
           <div class="col-12">
@@ -55,10 +35,10 @@
               <div class="card-header" style="background:#1f2d3d">
                 <div class="row">
                     <div class="col-md-6">
-                        <h3 class="card-title mt-1 text-light"> <strong>All Payment Method Information</strong> </h3>
+                        <h3 class="card-title mt-1 text-light"> <strong>All Product Stock Information</strong> </h3>
                     </div>
                     <div class="col-md-6 text-right">
-                        <a href="{{ route('payment.create') }}" class="btn btn-primary btn-sm"><i class="fas fa-plus-square mr-1"></i> Add Payment Method</a>
+                        
                     </div>
                 </div>
               </div>
@@ -68,29 +48,35 @@
                   <thead>
                   <tr>
                     <th>S1 No.</th>
-                    <th>Name</th>
-                    <th>Details</th>
-                    <th>Status</th>
-                    <th>Created At</th>
-                    <th>Action</th>
+                    <th>Image</th>
+                    <th>Product Name</th>
+                    <th>Supplier Name</th>
+                    <th>Quantity</th>
+                    {{-- <th>Purchase Date</th> --}}
+                    
                   </tr>
                   </thead>
                   <tbody>
-                  @foreach ($pmethods as $key=>$pmethod)
+                  @foreach ($stocks as $key=>$stock)
                   <tr>
                     <td>{{ $key + 1 }}</td>
-                    <td>{{ $pmethod->payment_name }}</td>
-                    <td>{{ $pmethod->payment_details }}</td>
-                     <td>
-                       <input type="checkbox" data-toggle="toggle" data-on="On" data-size="sm" id="pstatus" data-id="{{ $pmethod->id }}" data-off="Off" {{ $pmethod->status == 1 ? 'checked':'' }} data-onstyle="primary" data-offstyle="warning">
-                     </td>
-                    <td>{{ $pmethod->created_at->diffForHumans() }}</td>
                     <td>
-                       
-                        <a href="#" class="btn btn-sm btn-info disabled"><i class="fas fa-pencil-alt">
-                        </i> Edit</a>
-                         <a href="#" class="btn btn-sm btn-danger disabled" id="delete"><i class="fas fa-trash"></i> Delete</a>
+                      <img class="img-fluid " id="showImage"
+                      src="{{ (!empty($stock->product_image)) ? url($stock->product_image) : url('upload/admin/no-image-box.png') }}" alt="User" name="image" style="width:70px; height:50px;">
                     </td>
+                    <td>{{ Str::limit($stock->product_name,40) }}</td>
+                    <td>{{ $stock->supplier->supplier_name  }}</td>
+                    <td>
+                      @if($stock->product_quantity == NULL)
+                        <a href="{{ route('purchase.create') }}" class="btn btn-primary btn-sm">Add Stock</a>
+                      @else 
+                      {{ $stock->product_quantity }}
+                      @endif
+                      
+                    </td>
+                    {{-- <td>{{ $stock->today_date  }}</td> --}}
+                    
+                   
                   </tr> 
                   @endforeach
                   </tbody>
@@ -111,7 +97,6 @@
 </div>
 <!-- ./wrapper -->
 
-
 @endsection
 
 @push('js')
@@ -128,35 +113,6 @@
 <script src="{{ asset('contents/admin') }}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="{{ asset('contents/admin') }}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="{{ asset('contents/admin') }}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
-
-<script>
-    $('body').on('change','#pstatus', function(){
-        let id = $(this).attr('data-id');
-        
-        if(this.checked){
-            var status = 1;
-        }else{
-            var status = 0;
-        }
-       $.ajax({
-           url:'/setting/payment/'+id+'/'+status,
-           method:'get',
-           beforeSend(){
-              $('.loading').css('display', 'block');
-            },
-           success: function(result){
-             toastr.success(result.messege);
-           },
-           complete(){
-            $('.loading').css('display', 'none');
-           }
-       });
-  
-  
-    });
-  
-  </script>
 
 <script>
   $(function () {
@@ -174,9 +130,5 @@
       "responsive": true,
     });
   });
-
 </script>
-
-
-
 @endpush

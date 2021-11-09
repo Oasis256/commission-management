@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 28, 2021 at 12:11 PM
+-- Generation Time: Nov 09, 2021 at 09:44 AM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
@@ -45,7 +45,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `current_team_id`, `profile_photo_path`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '2021-09-20 04:33:18', '$2y$10$8VB5Tq0DXc3hIxiq9inQFedq2DERK77ya/F1sJLQS1CY3d/Q8k2fy', 'iWw8XKJbtCoTQ16OU3E9PUaawYoTNdG6pCy1vvoTQvwlsbv9W9ZgW0aqpLuJ', NULL, '202109201202Ambrose-Chui-Cropped-200x200.jpg', '2021-09-20 04:33:18', '2021-09-20 06:02:50');
+(1, 'admin', 'admin@gmail.com', '2021-09-20 04:33:18', '$2y$10$8VB5Tq0DXc3hIxiq9inQFedq2DERK77ya/F1sJLQS1CY3d/Q8k2fy', '5CBSvFmIEfGUFACItftz4ew8Q1di3uHQfAjl3Mmqdzaq7NzMdVod6iNI2p2x', NULL, '202109201202Ambrose-Chui-Cropped-200x200.jpg', '2021-09-20 04:33:18', '2021-09-20 06:02:50');
 
 -- --------------------------------------------------------
 
@@ -106,6 +106,56 @@ INSERT INTO `categories` (`id`, `category_name`, `category_slug`, `status`, `del
 (6, 'Feed', 'feed', 0, NULL, '2021-10-01 22:49:14', NULL),
 (7, 'Square Feed', 'square-feed', 1, NULL, '2021-10-01 22:50:14', NULL),
 (8, 'Soft water', 'soft-water', 1, NULL, '2021-10-02 00:47:16', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customers`
+--
+
+CREATE TABLE `customers` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` int(11) DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `date_of_birth` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `gender` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `age` int(11) DEFAULT NULL,
+  `city` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `state` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`id`, `name`, `phone`, `email`, `date_of_birth`, `gender`, `age`, `city`, `state`, `country`, `status`, `address`, `created_at`, `updated_at`) VALUES
+(1, 'Rasel Hossain', 1786343465, 'rasel@gmail.com', '1999-02-02', 'male', 21, 'pabna', NULL, NULL, 1, 'pabna', '2021-10-30 04:50:26', '2021-10-30 05:26:30'),
+(2, 'Yeasin Hossain', 1768491641, 'coderyeasin@gmail.com', '1996-02-02', 'male', 25, 'pabna', NULL, NULL, 1, 'pabna', '2021-10-30 04:57:22', '2021-10-30 05:24:02'),
+(3, 'Shamim Hossain', 789665222, 'shamim@gmail.com', '2001-02-03', 'male', 20, 'Pabna', NULL, NULL, 1, 'pabna sadar', '2021-11-03 03:24:34', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer_due_paids`
+--
+
+CREATE TABLE `customer_due_paids` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `due_paid` int(11) DEFAULT NULL,
+  `balance` int(11) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `total_due` int(11) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -183,7 +233,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (26, '2021_10_03_101845_create_purchases_table', 9),
 (27, '2021_10_23_131314_create_inventory_products_table', 10),
 (29, '2021_10_28_070111_add_product_quantity_to_products', 12),
-(30, '2021_10_28_055625_create_stock_products_table', 13);
+(30, '2021_10_28_055625_create_stock_products_table', 13),
+(31, '2021_10_30_091303_create_customers_table', 14),
+(32, '2021_11_02_055045_create_sells_table', 15),
+(33, '2021_11_03_052835_add_date_to_sells', 16),
+(34, '2021_11_03_062520_add_status_to_sells', 17),
+(35, '2021_11_03_085414_create_customer_due_paids_table', 18),
+(36, '2021_11_03_090646_add_customer_due_paids_to_total_due', 19);
 
 -- --------------------------------------------------------
 
@@ -236,10 +292,10 @@ CREATE TABLE `pmethods` (
 --
 
 INSERT INTO `pmethods` (`id`, `payment_name`, `payment_slug`, `payment_details`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Bkash', 'bkash', 'Bkash a Brack Bank Service', 1, '2021-10-03 00:22:44', '2021-10-03 03:06:34'),
-(2, 'Cash on Delivery', 'cash-on-delivery', 'Payment method details goes here', 1, '2021-10-03 00:23:54', '2021-10-03 04:19:46'),
-(3, 'Gift card', 'gift-card', 'Details of giftcard payment method', 0, '2021-10-03 00:26:40', '2021-10-20 05:33:37'),
-(4, 'Credit', 'credit', 'Payment by customer credited balance', 0, '2021-10-03 00:27:01', '2021-10-20 05:33:40');
+(1, 'Bkash', 'bkash', 'Bkash a Brack Bank Service', 1, '2021-10-03 00:22:44', '2021-11-09 01:40:43'),
+(2, 'Cash', 'cash', 'Payment method details goes here', 1, '2021-10-03 00:23:54', '2021-11-09 01:40:42'),
+(3, 'Gift card', 'gift-card', 'Details of giftcard payment method', 0, '2021-10-03 00:26:40', '2021-11-09 01:40:49'),
+(4, 'Credit', 'credit', 'Payment by customer credited balance', 1, '2021-10-03 00:27:01', '2021-11-08 01:14:50');
 
 -- --------------------------------------------------------
 
@@ -256,7 +312,7 @@ CREATE TABLE `products` (
   `product_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `product_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `product_price` double NOT NULL,
-  `alert_quantity` int(11) DEFAULT NULL,
+  `product_quantity` int(11) DEFAULT NULL,
   `product_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -267,11 +323,11 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `brand_id`, `category_id`, `supplier_id`, `unit_id`, `product_name`, `product_code`, `product_price`, `alert_quantity`, `product_image`, `status`, `created_at`, `updated_at`) VALUES
-(1, 5, 8, 5, 4, 'Coca-Cola 600 ml', 'C-0001', 40, 10, 'upload/product/1712491822469679.png', 1, '2021-10-02 01:27:10', '2021-10-02 01:37:28'),
-(2, 5, 8, 5, 5, 'Coca-Cola 2.25 ltr', 'C-0002', 110, 10, 'upload/product/1712491773215273.png', 1, '2021-10-02 01:25:31', '2021-10-02 01:37:33'),
-(3, 4, 8, 4, 4, 'pepsi-diet-can 250ml', 'P-0001', 40, 20, 'upload/product/1712490185337620.png', 1, '2021-10-02 00:58:26', '2021-10-02 01:37:37'),
-(4, 7, 4, 1, 1, 'Chanacur 150 gm', '152622', 30, 20, 'upload/product/1714847224535969.jpg', 1, '2021-10-28 01:22:34', NULL);
+INSERT INTO `products` (`id`, `brand_id`, `category_id`, `supplier_id`, `unit_id`, `product_name`, `product_code`, `product_price`, `product_quantity`, `product_image`, `status`, `created_at`, `updated_at`) VALUES
+(1, 5, 8, 5, 4, 'Coca-Cola 600 ml', 'C-0001', 40, 210, 'upload/product/1712491822469679.png', 1, '2021-10-02 01:27:10', '2021-10-02 01:37:28'),
+(2, 5, 8, 5, 5, 'Coca-Cola 2.25 ltr', 'C-0002', 110, -14, 'upload/product/1712491773215273.png', 1, '2021-10-02 01:25:31', '2021-10-02 01:37:33'),
+(3, 4, 8, 4, 4, 'pepsi-diet-can 250ml', 'P-0001', 40, 40, 'upload/product/1712490185337620.png', 1, '2021-10-02 00:58:26', '2021-10-02 01:37:37'),
+(4, 7, 4, 1, 1, 'Chanacur 150 gm', '152622', 30, 150, 'upload/product/1714847224535969.jpg', 1, '2021-10-28 01:22:34', NULL);
 
 -- --------------------------------------------------------
 
@@ -314,9 +370,68 @@ CREATE TABLE `purchases` (
 --
 
 INSERT INTO `purchases` (`id`, `today_date`, `product_id`, `supplier_id`, `pmethod_id`, `note`, `invoice_name`, `reference_no`, `add_product`, `quantity`, `available`, `cost`, `subtotal`, `instant_commisition`, `monthly_commisition`, `yearly_commisition`, `transport_commisition`, `extra_one_commisition`, `extra_two_commisition`, `payable_amount`, `paid_amount`, `due_paid`, `due`, `return_amount`, `balance`, `created_at`, `updated_at`) VALUES
-(2, '2021-10-28', 3, 4, 1, 'test', NULL, '60', NULL, 20, NULL, '15.00', NULL, '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '300.00', '250.00', '50.00', '50.00', '0.00', '0.00', NULL, NULL),
-(3, '2021-10-28', 1, 5, 2, 'oopp', NULL, '85622', NULL, 60, NULL, '35.00', NULL, '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '2100.00', '2000.00', '100.00', '100.00', '0.00', '0.00', NULL, NULL),
-(4, '2021-10-28', 1, 5, 1, 'test', NULL, '55222', NULL, 60, NULL, '35.00', NULL, '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '2100.00', '2100.00', '0.00', '0.00', '0.00', '0.00', NULL, NULL);
+(2, '2021-10-28', 3, 4, 1, 'test', NULL, '60', NULL, 20, NULL, '15.00', NULL, '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '300.00', '250.00', '0.00', '50.00', '0.00', '0.00', NULL, NULL),
+(3, '2021-10-28', 1, 5, 2, 'oopp', NULL, '85622', NULL, 60, NULL, '35.00', NULL, '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '2100.00', '2000.00', '0.00', '100.00', '0.00', '0.00', NULL, NULL),
+(4, '2021-10-28', 1, 5, 1, 'test', NULL, '55222', NULL, 60, NULL, '35.00', NULL, '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '2100.00', '2100.00', '0.00', '0.00', '0.00', '0.00', NULL, NULL),
+(5, '2021-10-30', 1, 5, 1, NULL, NULL, '855222', NULL, 35, NULL, '20.00', NULL, '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '700.00', '700.00', '0.00', '0.00', '0.00', '0.00', NULL, NULL),
+(6, '2021-10-30', 1, 5, 1, NULL, NULL, '855222', NULL, 35, NULL, '20.00', NULL, '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '700.00', '700.00', '0.00', '0.00', '0.00', '0.00', NULL, NULL),
+(7, '2021-10-30', 1, 5, 1, NULL, NULL, '855222', NULL, 35, NULL, '20.00', NULL, '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '700.00', '700.00', '0.00', '0.00', '0.00', '0.00', NULL, NULL),
+(8, '2021-10-30', 1, 5, 1, NULL, NULL, '855222', NULL, 35, NULL, '20.00', NULL, '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '700.00', '700.00', '0.00', '0.00', '0.00', '0.00', NULL, NULL),
+(9, '2021-10-30', 1, 5, 1, NULL, NULL, '855222', NULL, 35, NULL, '20.00', NULL, '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '700.00', '700.00', '0.00', '0.00', '0.00', '0.00', NULL, NULL),
+(10, '2021-10-30', 1, 5, 1, NULL, NULL, '856655', NULL, 50, NULL, '35.00', NULL, '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '1750.00', '1750.00', '0.00', '0.00', '0.00', '0.00', NULL, NULL),
+(11, '2021-10-30', 3, 4, 2, NULL, NULL, '85522', NULL, 100, NULL, '15.00', NULL, '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '1500.00', '1200.00', '0.00', '300.00', '0.00', '0.00', NULL, NULL),
+(12, '2021-10-30', 4, 1, 1, 'dddd', NULL, '855522', NULL, 120, NULL, '25.00', NULL, '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '3000.00', '2000.00', '0.00', '1000.00', '0.00', '0.00', NULL, NULL),
+(13, '2021-10-30', 4, 1, 1, NULL, NULL, 'ggggg', NULL, 50, NULL, '25.00', NULL, '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '1250.00', '1250.00', '0.00', '0.00', '0.00', '0.00', NULL, NULL),
+(14, '2021-10-30', 4, 1, 2, 'ff', NULL, '552222', NULL, 150, NULL, '25.00', NULL, '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '3750.00', '3750.00', '0.00', '0.00', '0.00', '0.00', NULL, NULL),
+(15, '2021-10-30', 1, 5, 2, 'test', NULL, '52552', NULL, 200, NULL, '35.00', NULL, '10.00', '0.00', '0.00', '0.00', '0.00', '0.00', '6300.00', '6000.00', '0.00', '300.00', '0.00', '0.00', '2021-10-30 01:20:42', NULL),
+(16, '2021-10-30', 4, 1, 1, 'bd', NULL, '85622', NULL, 50, NULL, '25.00', NULL, '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '1250.00', '1250.00', '0.00', '0.00', '0.00', '0.00', NULL, NULL),
+(17, '2021-11-02', 3, 4, 1, NULL, NULL, '5655255', NULL, 50, NULL, '35.00', NULL, '5.00', '10.00', '10.00', '15.00', '7.00', '8.00', '1612.50', '1612.00', '0.00', '0.50', '0.00', '0.00', NULL, NULL),
+(18, '2021-11-04', 1, 5, 1, NULL, NULL, '44444', NULL, 20, NULL, '35.00', NULL, '0.00', '100.00', '0.00', '0.00', '0.00', '0.00', '600.00', '600.00', '0.00', '0.00', '0.00', '0.00', NULL, NULL),
+(19, '2021-11-04', 2, 5, 2, NULL, NULL, '8888888', NULL, 15, NULL, '105.00', NULL, '0.00', '30.00', '30.00', '30.00', '45.00', '45.00', '1395.00', '1300.00', '0.00', '95.00', '0.00', '0.00', NULL, NULL),
+(20, '2021-11-06', 1, 5, 2, NULL, NULL, '522', NULL, 20, NULL, '70.00', NULL, '40.00', '40.00', '40.00', '40.00', '40.00', '40.00', '640.00', '640.00', '0.00', '0.00', '0.00', '0.00', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sells`
+--
+
+CREATE TABLE `sells` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `pmethod_id` int(11) NOT NULL,
+  `invoice_no` int(11) NOT NULL,
+  `payable_amount` int(11) NOT NULL DEFAULT '0',
+  `paid_amount` int(11) NOT NULL DEFAULT '0',
+  `due` int(11) NOT NULL DEFAULT '0',
+  `quantity` int(11) NOT NULL DEFAULT '0',
+  `paid_due` int(11) NOT NULL DEFAULT '0',
+  `return` int(11) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `date` date NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sells`
+--
+
+INSERT INTO `sells` (`id`, `product_id`, `customer_id`, `pmethod_id`, `invoice_no`, `payable_amount`, `paid_amount`, `due`, `quantity`, `paid_due`, `return`, `created_at`, `updated_at`, `date`, `status`) VALUES
+(1, 3, 2, 1, 659875, 800, 700, 100, 20, 0, 0, NULL, '2021-11-03 01:34:31', '2021-11-03', 1),
+(2, 1, 1, 2, 612859, 2400, 2400, 0, 60, 0, 0, NULL, '2021-11-03 01:33:06', '2021-11-03', 1),
+(3, 2, 2, 2, 899156, 550, 500, 50, 5, 0, 0, NULL, NULL, '2021-11-03', 1),
+(4, 2, 1, 2, 141684, 440, 400, 40, 4, 0, 0, NULL, NULL, '2021-11-03', 1),
+(5, 2, 3, 2, 342465, 1100, 1000, 100, 10, 0, 0, NULL, NULL, '2021-11-03', 1),
+(6, 3, 3, 2, 890144, 800, 500, 300, 20, 0, 0, NULL, NULL, '2021-11-03', 1),
+(7, 4, 3, 2, 330849, 1500, 1200, 300, 50, 0, 0, NULL, NULL, '2021-11-03', 1),
+(8, 3, 2, 2, 0, 800, 800, 0, 20, 0, 0, NULL, NULL, '2021-11-04', 1),
+(9, 3, 3, 2, 924164, 1600, 1200, 400, 40, 0, 0, NULL, NULL, '2021-11-06', 1),
+(10, 3, 3, 2, 855123, 800, 800, 0, 20, 0, 0, NULL, NULL, '2021-11-06', 1),
+(11, 2, 2, 2, 206959, 2200, 2000, 200, 20, 0, 0, NULL, NULL, '2021-11-06', 1),
+(12, 1, 1, 1, 100163, 1200, 1000, 200, 30, 0, 0, NULL, NULL, '2021-11-06', 1),
+(13, 3, 2, 2, 625073, 400, 350, 50, 10, 0, 0, NULL, NULL, '2021-11-08', 1);
 
 -- --------------------------------------------------------
 
@@ -338,7 +453,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('8faCNNQYtSz4hCBsQtODNZlhW9Lr6kLbH6U05pzI', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoidFpEVzZtNWdjSmE1VVYybjFzb082cERtaWsycW1hcG5ON3o3cFRFUSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTA6Imh0dHBzOi8vaXNsYW1wb3VsdHJ5LmRldi9wdXJjaGFzZXMvcHVyY2hhc2UvY3JlYXRlIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1635421858);
+('T1BIn4Brxeke9nPJPLdxx4BzdgcG4mfbxTwmMCWF', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoieTBiREVqQ3I2S1lwNkg2VUxrTGpkRVUxUE04cE1DRnJKcUVyWGlIVyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTE6Imh0dHBzOi8vaXNsYW1wb3VsdHJ5LmRldi9yZXBvcnQvY29tbWlzaXRpb24vYmFsYW5jZSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTI6ImxvZ2luX2FkbWluXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1636443829);
 
 -- --------------------------------------------------------
 
@@ -469,6 +584,20 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `customers`
+--
+ALTER TABLE `customers`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `customers_phone_unique` (`phone`),
+  ADD UNIQUE KEY `customers_email_unique` (`email`);
+
+--
+-- Indexes for table `customer_due_paids`
+--
+ALTER TABLE `customer_due_paids`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -518,6 +647,12 @@ ALTER TABLE `products`
 -- Indexes for table `purchases`
 --
 ALTER TABLE `purchases`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sells`
+--
+ALTER TABLE `sells`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -581,6 +716,18 @@ ALTER TABLE `categories`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT for table `customers`
+--
+ALTER TABLE `customers`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `customer_due_paids`
+--
+ALTER TABLE `customer_due_paids`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -596,7 +743,7 @@ ALTER TABLE `inventory_products`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -620,7 +767,13 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `purchases`
 --
 ALTER TABLE `purchases`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `sells`
+--
+ALTER TABLE `sells`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `stock_products`
